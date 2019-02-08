@@ -1,0 +1,27 @@
+{
+  "app": {
+    "name": "croc-hunter",
+    "replicas": "3",
+    "cpu": "10m",
+    "memory": "128Mi",
+    "test": true,
+    "hostname": "croc-hunter.dev-api.bank-abc.internal"
+  },
+  "container_repo": {
+    "host": "709275920124.dkr.ecr.eu-west-1.amazonaws.com",
+    "master_acct": "mobmarius",
+    "alt_acct": "mobmarius",
+    "jenkins_creds_id": "ecr_creds",
+    "repo": "croc-hunter",
+    "dockeremail": ".",
+    "dockerfile": "./",
+    "image_scanning": false
+  },
+  "pipeline": {
+      "enabled": true,
+      "debug": false,
+      "library": {
+        "branch": "dev"
+      }
+  }
+}
