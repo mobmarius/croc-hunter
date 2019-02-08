@@ -3,18 +3,24 @@
 # helm --namespace jenkins --name jenkins -f ./jenkins-values.yaml install stable/jenkins
 
 Master:
-  ImageTag: "2.74"
-  Memory: "512Mi"
+  ImageTag: "lts"
   HostName: jenkins.dev-api.bank-abc.internal
   ServiceType: ClusterIP
   InstallPlugins:
-      - kubernetes:0.12
-      - workflow-aggregator:2.5
-      - credentials-binding:1.13
-      - git:3.5.1
+      - kubernetes:1.14.3
+      - workflow-aggregator:2.6
+      - credentials-binding:1.17
+      - git:3.9.3
       - pipeline-github-lib:1.0
-      - ghprb:1.39.0
-      - blueocean:1.1.7
+      - ghprb:1.42.0
+      - blueocean:1.10.2
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "256Mi"
+    limits:
+      cpu: "2000m"
+      memory: "4096Mi"
 
   ScriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
