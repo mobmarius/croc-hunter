@@ -14,6 +14,7 @@ Master:
       - pipeline-github-lib:1.0
       - ghprb:1.42.0
       - blueocean:1.10.2
+      - anchore-container-scanner:1.0.18
   resources:
     requests:
       cpu: "50m"
