@@ -1,0 +1,9 @@
+name: croc-hunter
+home: https://github.com/mobmarius/croc-hunter
+version: 0.3.1
+description: Live out your dream hunting Crocs
+sources:
+  - https://github.com/mobmarius/croc-hunter
+maintainers:
+  - name: Marius Milea
+    email: mmilea@mobiquityinc.com

@@ -4,8 +4,9 @@
 
 Master:
   ImageTag: "lts"
-  HostName: jenkins.dev-api.bank-abc.internal
+  HostName: 7778e31c-kubesystem-lbdeva-d3eb-317087468.eu-west-1.elb.amazonaws.com
   ServiceType: ClusterIP
+  JenkinsUriPrefix: "/jenkins"
   InstallPlugins:
       - kubernetes:1.14.3
       - workflow-aggregator:2.6
@@ -14,6 +15,7 @@ Master:
       - pipeline-github-lib:1.0
       - ghprb:1.42.0
       - blueocean:1.10.2
+      - anchore-container-scanner:1.0.18
   resources:
     requests:
       cpu: "50m"
@@ -34,12 +36,30 @@ Master:
   Ingress:
     Annotations:
       kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
+      kubernetes.io/tls-acme: "false"
 
-    TLS:
-      - secretName: jenkins.dev-api.bank-abc.internal
-        hosts:
-          - jenkins.dev-api.bank-abc.internal
+      #    TLS:
+      #- secretName: jenkins.dev-api.bank-abc.internal
+      #  hosts:
+      #    - jenkins.dev-api.bank-abc.internal
+
+Persistence:
+  Enabled: true
+  ExistingClaim: jenkins-home-pvc
+  Annotations: {}
+  AccessMode: ReadWriteOnce
+  Size: 10Gi
+
+rbac:
+  install: false
+  serviceAccountName: jenkins
+  roleRef: cluster-admin
 
 Agent:
   Enabled: false
+  Image: jenkinsci/jnlp-slave
+  ImageTag: 3.10-1
+  Component: "jenkins-slave"
+  Privileged: false
+  AlwaysPullImage: false
+  NodeSelector: {}
